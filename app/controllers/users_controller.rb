@@ -20,9 +20,9 @@ class UsersController < ApplicationController
     end
 
   post '/login' do
-    @user = User.find_by(email: params["email"], password: params["password"])
+    @user = User.find_by(username: params["username"], password: params["password"])
     if !@user
-      redirect to '/users/login'
+      redirect to '/login'
     else
       session[:user_id] = @user.id
       redirect to '/movies'
