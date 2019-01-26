@@ -1,0 +1,8 @@
+<h1>Welcome to your list, <%= @user.username %>!</h1>
+
+<% @movies.each do |movie| %>
+	<li><a href="/movies/<%= movie.id %>"><%= movie.title %></a> <%= movie.release_date %></li>
+<% end %>
+<br><br>
+
+<a href="/movies/new"><input type="button" value="Add to your list"></a>

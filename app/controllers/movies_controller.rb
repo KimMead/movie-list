@@ -6,7 +6,7 @@ class MoviesController < ApplicationController
     else
   	  @movies = Movie.all
       @user = Helpers.current_user(session)
-      erb :'/movies/movies'
+      erb :'/movies/list'
     end
   end
 
@@ -23,17 +23,12 @@ class MoviesController < ApplicationController
       redirect to '/login'
     else
   	  @movie = Movie.find_by_id(params[:id])
-  	  erb	:'/movies/movies'
+  	  erb	:'/movies/list'
     end
   end
 
   post '/movies' do
-      if params[:content] == ""
-        redirect '/movies/new'
-      else
-        @movie = Movie.new(content: params[:content], user_id: session[:user_id])
-        @movie.save
-        redirect "/movies/#{@movie.id}"
-      end
+    @movie = Movie.create(:title => params[:movie])
+    redirect to "/list/#{@movie.id}"
     end
-end
+  end
