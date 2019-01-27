@@ -2,8 +2,8 @@ class MoviesController < ApplicationController
 
   get '/movie_list' do
     redirect_if_not_logged_in
-    @movies = Movies.all
-      erb :'/movies/movie_list'
+    @movies = Movie.all
+      erb :'movies/movie_list'
   end
 
   get '/movies/new' do
@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
   get '/movies/:id' do
     redirect_if_not_logged_in
   	@movie = Movie.find(params[:id])
-  	erb	:'/movies/movie_show'
+  	erb	:'movies/movie_show'
   end
 
   post '/movies' do

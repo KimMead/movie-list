@@ -8,7 +8,7 @@ class Movie < ActiveRecord::Base
   end
 
   def self.find_by_slug(slug)
-    Song.all.each do |a|
+    Movie.all.each do |a|
       if a.slug == slug
         return a
       end

@@ -13,32 +13,41 @@ class UsersController < ApplicationController
       redirect to '/signup'
     else
       @user = User.new(username: params[:username], email: params[:email], password: params[:password])
-      @user.save
       session[:user_id] = @user.id
       redirect to '/movie_list'
     end
   end
 
   get '/users/login' do
-    if Helpers.is_logged_in?(session)
-      redirect to '/movie_list'
-    else
+    @error_message = params[:error]
+    if !session[:user_id]
       erb :'users/login'
+    else
+      redirect to '/movie_list'
     end
   end
 
   post '/login' do
-    @user = User.find_by(username: params["username"], password: params["password"])
-    if !@user
-      redirect to '/login'
-    else
-      session[:user_id] = @user.id
+    @user = User.find_by(:username => params[:username])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
       redirect to '/movie_list'
+    else
+      redirect to '/signup'
      end
    end
 
+   get '/logout' do
+    if session[:user_id] != nil
+      session.destroy
+      redirect to '/login'
+    else
+      redirect to '/'
+    end
+  end
+
    get 'users/:slug' do
      @user = User.find_by_slug(params[:slug])
-     erb :'user/show'
+     erb :'users/show'
    end
  end
