@@ -1,0 +1,9 @@
+<h1><%= @movie.content %></h1>
+<br>
+<br>
+<a href="/movie_list/<%= @movie.id %>/edit"><button>Edit Movie</button></a>
+<form method="POST" action="/movie_list/<%= @movie.id %>/delete">
+  <input type="hidden" id="hidden" name="_method" value="delete" >
+  <input type="submit" value="Delete Movie" id="submit">
+</form>
+<a href="/movie_list"><button>Back to List</button></a>

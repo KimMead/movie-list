@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
 
   get '/users/signup' do
-    erb :'users/signup'
+    if Helpers.is_logged_in?(session)
+      redirect to '/movie_list'
+    else
+      erb :'users/signup'
+    end
   end
 
   post '/signup' do
@@ -16,8 +20,12 @@ class UsersController < ApplicationController
   end
 
   get '/users/login' do
+    if Helpers.is_logged_in?(session)
+      redirect to '/movie_list'
+    else
       erb :'users/login'
     end
+  end
 
   post '/login' do
     @user = User.find_by(username: params["username"], password: params["password"])
@@ -25,7 +33,11 @@ class UsersController < ApplicationController
       redirect to '/login'
     else
       session[:user_id] = @user.id
-      redirect to '/movies'
+      redirect to '/movie_list'
      end
    end
+
+   get 'users/:slug' do
+     @user = User.find_by_slug(params[:slug])
+     erb :'user/show'
 end
