@@ -3,23 +3,30 @@ require 'pry'
 
 class ApplicationController < Sinatra::Base
 
-    register Sinatra::ActiveRecordExtension
+  configure do
     set :public_folder, 'public'
     set :views, 'app/views'
-    enable :sessions unless test?
+    enable :sessions
     set :session_secret, "secret"
+  end
 
   get '/' do
     erb :index
   end
 
   helpers do
-    def is_logged_in?
-      !!session[:user_id]
+    def redirect_if_not_logged_in
+      if !logged_in?
+        redirect to '/users/login?error=You must be logged in'
     end
+  end
+
+  def logged_in?
+    !!session[:user_id]
+  end
 
   def current_user
     User.find(session[:user_id])
   end
-end
+  end
 end

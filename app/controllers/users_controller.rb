@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
   get '/users/signup' do
-    if Helpers.is_logged_in?(session)
-      redirect to '/movie_list'
-    else
+    if !session[:user_id]
       erb :'users/signup'
+    else
+      redirect to '/movie_list'
     end
   end
 
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       @user = User.new(username: params[:username], email: params[:email], password: params[:password])
       @user.save
       session[:user_id] = @user.id
-      redirect to '/movies'
+      redirect to '/movie_list'
     end
   end
 
@@ -40,4 +40,5 @@ class UsersController < ApplicationController
    get 'users/:slug' do
      @user = User.find_by_slug(params[:slug])
      erb :'user/show'
-end
+   end
+ end

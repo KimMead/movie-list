@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20190121030516) do
 
   create_table "movies", force: :cascade do |t|
     t.string  "title"
-    t.string  "content"
     t.integer "user_id"
+    t.integer "director"
     t.integer "release_date"
   end
 
