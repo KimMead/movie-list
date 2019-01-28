@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  get '/users/signup' do
+  get '/signup' do
     if !session[:user_id]
       erb :'users/signup'
     else
@@ -10,10 +10,12 @@ class UsersController < ApplicationController
 
   post '/signup' do
     if params[:username] == "" || params[:email] == "" || params[:password] == ""
-      redirect to '/signup'
+      redirect to 'users/signup'
     else
       @user = User.new(username: params[:username], email: params[:email], password: params[:password])
+      @user.save
       session[:user_id] = @user.id
+
       redirect to '/movie_list'
     end
   end
@@ -28,8 +30,8 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-    @user = User.find_by(:username => params[:username])
-    if user && user.authenticate(params[:password])
+    @user = User.find_by(username: params["username"], password: params["password"])
+    if @user
       session[:user_id] = user.id
       redirect to '/movie_list'
     else
@@ -40,14 +42,9 @@ class UsersController < ApplicationController
    get '/logout' do
     if session[:user_id] != nil
       session.destroy
-      redirect to '/login'
+      redirect to 'users/login'
     else
-      redirect to '/'
+      redirect to '/index'
     end
   end
-
-   get 'users/:slug' do
-     @user = User.find_by_slug(params[:slug])
-     erb :'users/show'
-   end
- end
+end

@@ -20,9 +20,18 @@ class MoviesController < ApplicationController
 
   post '/movies' do
     @movie = Movie.create(:title => params[:title])
-    @movie.director = Artist.find_or_create_by(:name => params["Artist Name"])
-    @movie.genre_ids = params[:genres]
     @movie.save
     redirect to "/movie_list"
     end
+
+  get '/movies/:id/edit' do
+    @movie = Movie.find(params[:id])
+    erb :'movies/edit'
   end
+
+  patch '/movies/:id' do
+    @movie = Movie.find(params[:id])
+    @article.update(title: params[:title])
+    redirect to ('/movies/#{@movie.id}')
+  end
+end

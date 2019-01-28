@@ -1,0 +1,7 @@
+<%= @movie.title %>
+<form action="/movies/<%= @movie.id %>" method="POST"
+
+<label for ="name"> Movie Title</label>
+<input type="text" name="title">
+
+<input id="hidden" type="hidden" name="_method" value="PATCH">
