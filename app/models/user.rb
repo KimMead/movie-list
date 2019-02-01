@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
+  has_secure_password
   has_many :movies
 
   validates_presence_of :username, :email, :password
-  has_secure_password
+
 
   def slug
     username.downcase.gsub(" ","-")
