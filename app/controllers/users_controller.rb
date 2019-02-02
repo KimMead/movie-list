@@ -1,30 +1,7 @@
 class UsersController < ApplicationController
 
-  get '/users/signup' do
-      erb :'users/signup'
-    end
-
-  post '/signup' do
-    if params[:username] != "" && params[:email] != "" && params[:password] != ""
-      @user = User.create(params)
-      @user.save
-      redirect to "/users/#{@user.id}"
-    else
-      redirect to 'users/signup'
-    end
-  end
-
-  get '/users/:id' do
-    @user = User.find_by(id: params[:id])
-    erb :'/users/show'
-  end
-
   get '/users/login' do
-    if !session[:user_id]
       erb :'users/login'
-    else
-      redirect to 'users/show'
-    end
   end
 
   post '/login' do
@@ -38,12 +15,27 @@ class UsersController < ApplicationController
      end
    end
 
+   get '/users/signup' do
+       erb :'users/signup'
+     end
+
+   post '/signup' do
+     if params[:username] != "" && params[:email] != "" && params[:password] != ""
+       @user = User.create(params)
+       @user.save
+       redirect to "/users/#{@user.id}"
+     else
+       redirect to 'users/signup'
+     end
+   end
+
+   get '/users/:id' do
+     @user = User.find_by(id: params[:id])
+     erb :'users/show'
+   end
+
    get '/logout' do
-    if session[:user_id] != nil
-      session.destroy
-      redirect to 'users/login'
-    else
+      session.clear
       redirect to '/index'
-    end
   end
 end
