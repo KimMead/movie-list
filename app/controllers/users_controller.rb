@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  get '/users/signup' do
+  get '/signup' do
     if !session[:user_id]
       erb :'users/signup'
     else
