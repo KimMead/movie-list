@@ -1,12 +1,21 @@
 class MoviesController < ApplicationController
 
   get '/movies/new' do
+    if !logged_in?
+      redirect to '/'
+    else
     erb :'movies/new'
+    end
   end
 
   get '/movies' do
+    if !logged_in?
+      redirect to '/'
+    else
     @movie = Movie.all
-    erb :'users/show'
+    @user = current_user
+    erb :'movies/list'
+    end
   end
 
   post '/movies' do
@@ -22,8 +31,12 @@ class MoviesController < ApplicationController
     end
 
   get '/movies/:id' do
+    if !logged_in?
+      redirect to '/'
+    else
   	@movie = Movie.find(params[:id])
   	erb	:'movies/movie_show'
+    end
   end
 
   get '/movies/:id/edit' do
@@ -46,7 +59,7 @@ class MoviesController < ApplicationController
     @movie.update(title: params[:title], release_date: params[:release_date])
     redirect to "/movies/#{@movie.id}"
       else
-        redirect "users/#{current_user.id}"
+        redirect "/users/#{current_user.id}"
       end
     else
     redirect '/'
