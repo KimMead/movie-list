@@ -1,13 +1,15 @@
-
+<h1> Edit your movie </h1>
 
 <form class="" action="/movies/<%= @movie.id %>" method="POST">
 <input type="hidden" name="_method" value="PATCH">
 
-<label for ="name"> Movie Title</label>
-<input type="text" name="title" value="<%= @movie.title %=">
-
-<label for ="name"> Release Date</label>
-<input type="text" name="release date" value="<%= @movie.release_date %=">
-
+<label for ="name"> Movie Title:</label>
+<input type="text" name="title" value="">
+<br>
+<br>
+<label for ="name"> Release Date:</label>
+<input type="text" name="release date" value="">
+<br>
+<br>
 <input type="submit" name="" value="Save Changes">
 </form>

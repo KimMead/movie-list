@@ -1,6 +1,7 @@
-<h2> New Movie </h2>
 
-<p><%= @movie.title %></p>
+<h2>
+  <p><%= @movie.title %><%= @movie.release_date %></p>
+</h2>
 
 <a href="/movies/<%= @movie.id %>/edit"><button>Edit Movie</button></a>
 <form method="POST" action="/movies/<%= @movie.id %>/delete">
