@@ -1,6 +1,5 @@
 class MoviesController < ApplicationController
 
-
   get '/movies/new' do
     erb :'movies/new'
   end
