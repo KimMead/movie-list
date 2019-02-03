@@ -28,7 +28,11 @@ end
 
   patch '/movies/:id' do
     @movie = Movie.find(params[:id])
-    @article.update(title: params[:title])
-    redirect to ('/movies/#{@movie.id}')
+    @movie.update(title: params[:title], release_date: params[:release_date])
+    redirect to ("/movies/#{@movie.id}")
+  end
+
+  get '/movies' do
+    erb :'users/show'
   end
 end
