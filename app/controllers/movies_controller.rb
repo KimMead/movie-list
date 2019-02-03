@@ -5,17 +5,21 @@ class MoviesController < ApplicationController
   end
 
   post '/movies' do
-    @movie = Movie.create(:title => params[:title])
-    @movie.save
-    redirect to '/users/show'
+    if !logged_in?
+      redirect to '/'
+    end
+    if params[:title] != ""
+    @movie = Movie.create(title: params[:title], user_id: current_user.id)
+    redirect "/movies/#{@movie.id}"
+  else
+    redirect to '/movies/new'
   end
+end
 
   get '/movies/:id' do
   	@movie = Movie.find(params[:id])
   	erb	:'movies/movie_show'
   end
-
-
 
   get '/movies/:id/edit' do
     @movie = Movie.find(params[:id])
