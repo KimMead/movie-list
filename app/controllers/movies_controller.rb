@@ -1,20 +1,26 @@
 class MoviesController < ApplicationController
 
+
   get '/movies/new' do
     erb :'movies/new'
+  end
+
+  get '/movies' do
+    @movie = Movie.all
+    erb :'users/show'
   end
 
   post '/movies' do
     if !logged_in?
       redirect to '/'
     end
-    if params[:title] != ""
-    @movie = Movie.create(title: params[:title], user_id: current_user.id)
-    redirect "/movies/#{@movie.id}"
-  else
-    redirect to '/movies/new'
-  end
-end
+      if params[:title] != ""
+        @movie = Movie.create(title: params[:title], user_id: current_user.id)
+        redirect "/movies/#{@movie.id}"
+      else
+        redirect to '/movies/new'
+      end
+    end
 
   get '/movies/:id' do
   	@movie = Movie.find(params[:id])
@@ -48,7 +54,9 @@ end
     end
   end
 
-  get '/movies' do
-    erb :'users/show'
+  delete '/movies/:id/delete' do
+    @movie = Movie.find(params[:id])
+    @movie.destroy
+      redirect '/users/show'
   end
 end

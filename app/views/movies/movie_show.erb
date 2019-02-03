@@ -1,12 +1,12 @@
 
 <p><%= @movie.title %><%= @movie.release_date %></p>
 
-
 <a href="/movies/<%= @movie.id %>/edit"><button>Edit Movie</button></a>
-<form method="POST" action="/movies/<%= @movie.id %>/delete">
 
-  <input type="hidden" id="hidden" name="_method" value="delete" >
+<form class="" method="POST" action="/movies/<%= @movie.id %>/delete">
+
+  <input type="hidden" name="_method" value="delete" >
 <br>
-  <input type="submit" value="Delete Movie" id="submit">
+  <input type="submit" value="Delete Movie">
 </form>
 <a href="/movies"><button>Back to List</button></a>
