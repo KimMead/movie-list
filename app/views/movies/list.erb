@@ -1,8 +1,8 @@
 <h2>Welcome to your list, <%= @user.username %>!</h2>
 
-<% @movies.each do |movie| %>
+<% @movie.each do |movie| %>
 <ul>
-  <li><a href="/movies/<%= movie.id %>"<%= movie.title %><br><%= movie.release_date %></a></li>
+  <li><a href="/movies/<%= movie.id %>"><%= movie.title %></a></li>
 </ul>
 <% end %>
 
