@@ -67,8 +67,8 @@ class MoviesController < ApplicationController
   end
 
   delete '/movies/:id/delete' do
-    @movie = Movie.find_by_id(params[:id])
+    @movie = Movie.find(params[:id])
     @movie.destroy
-      redirect '/movies/list'
+      redirect '/movies'
   end
 end

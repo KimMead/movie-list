@@ -15,7 +15,7 @@ class UsersController < ApplicationController
      end
    end
 
-   get '/users/signup' do
+   get 'users/signup' do
        erb :'users/signup'
      end
 
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
    get '/users/:id' do
      @user = User.find_by(id: params[:id])
-     erb :'/users/show'
+     erb :'users/show'
    end
 
    get '/logout' do
