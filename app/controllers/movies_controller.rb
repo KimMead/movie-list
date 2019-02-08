@@ -66,9 +66,13 @@ class MoviesController < ApplicationController
     end
   end
 
-  delete '/movies/:id/delete' do
+  delete '/movies/:id' do
     @movie = Movie.find(params[:id])
-    @movie.destroy
-      redirect to "/movies/#{@movie.id}"
+    if authorized_to_edit?(@movie)
+      @movie.destroy
+      redirect to '/movies'
+    else
+      redirect to '/movies'
   end
+end
 end

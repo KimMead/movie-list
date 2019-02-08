@@ -15,7 +15,7 @@ class UsersController < ApplicationController
      end
    end
 
-   get 'users/signup' do
+   get '/users/signup' do
        erb :'users/signup'
      end
 
@@ -23,9 +23,9 @@ class UsersController < ApplicationController
      if params[:username] != "" && params[:email] != "" && params[:password] != ""
        @user = User.create(params)
        @user.save
-       redirect to "/users/#{@user.id}"
+       redirect to "users/#{@user.id}"
      else
-       redirect to 'users/signup'
+       redirect to '/signup'
      end
    end
 
