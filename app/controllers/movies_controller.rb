@@ -23,7 +23,7 @@ class MoviesController < ApplicationController
       redirect to '/'
     end
       if params[:title] != ""
-        @movie = Movie.create(title: params[:title], user_id: current_user.id)
+        @movie = Movie.create(title: params[:title], release_date: params[:release_date], user_id: current_user.id)
         redirect "/movies/#{@movie.id}"
       else
         redirect to '/movies/new'
