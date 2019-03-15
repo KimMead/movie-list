@@ -1,3 +1,4 @@
+
 class MoviesController < ApplicationController
 
   get '/movies/new' do
@@ -24,6 +25,7 @@ class MoviesController < ApplicationController
     end
       if params[:title] != ""
         @movie = Movie.create(title: params[:title], release_date: params[:release_date], user_id: current_user.id)
+
         redirect "/movies/#{@movie.id}"
       else
         redirect to '/movies/new'

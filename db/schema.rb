@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20190121023939) do
   create_table "movies", force: :cascade do |t|
     t.string  "title"
     t.integer "user_id"
-    t.integer "release_date"
+    t.string  "release_date"
   end
 
   create_table "users", force: :cascade do |t|
